@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 配置模块SDK信息 -->
+<modules>
+
+	<!-- 模块名和class全路径 -->
+	<!-- 注意,模块名必须与模块工程名(Linux模块名)完全一致 -->
+	<module name="sample" class="com.module.sample.Sample" />
+	<module name="gis" class="com.module.gis.GisServer" />
+
+</modules>

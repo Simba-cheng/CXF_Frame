@@ -1,0 +1,5 @@
+2017-05-28 00:08:09,819 DEBUG com.cxfframe.server.load.LoadConfig.loadCXFFrameCofig(LoadConfig.java:90) - cxfFrame_IP : 192.168.101.1
+2017-05-28 00:08:09,822 DEBUG com.cxfframe.server.load.LoadConfig.loadCXFFrameCofig(LoadConfig.java:91) - cxfFrame_PORT : 9099
+2017-05-28 00:08:09,826 DEBUG com.cxfframe.server.load.LoadConfig.loadCXFFrameCofig(LoadConfig.java:92) - cxfFrame_ServiceName : CXFFrame_QueryService
+2017-05-28 00:08:09,827 INFO com.cxfframe.server.load.LoadConfig.loadPrivatelyOwnedModuleConf(LoadConfig.java:188) - module Name : gis , configFiles is null
+2017-05-28 00:08:12,366 INFO com.cxfframe.service.CXFFrameRelease.main(CXFFrameRelease.java:41) - CXFFrame release is success , address : http://192.168.101.1:9099/CXFFrame_QueryService?wsdl
