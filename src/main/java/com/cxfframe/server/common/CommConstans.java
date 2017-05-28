@@ -33,7 +33,7 @@ public class CommConstans {
     /**
      * CXFFrame_log4j配置文件路径
      */
-    public static final String CXFFRAME_LOG4J_CONF_PATH = SYSTEN_ROOT_PATH + "conf/log4j.properties";
+    public static final String CXFFRAME_LOG4J_CONF_PATH = SYSTEN_ROOT_PATH + "conf/cxfframe_log4j.properties";
 
     /**
      * modules目录的路径
