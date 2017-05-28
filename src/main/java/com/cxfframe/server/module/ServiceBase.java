@@ -26,7 +26,7 @@ public abstract class ServiceBase {
     public abstract void init() throws Exception;
 
     /**
-     * 模块主处理方法
+     * 模块主处理方法(子模块返回建议不要返回null)
      *
      * @param information
      * @return

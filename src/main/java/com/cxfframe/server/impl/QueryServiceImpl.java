@@ -5,8 +5,6 @@ import com.cxfframe.server.inter.QueryService;
 import com.cxfframe.server.load.LoadConfig;
 import com.cxfframe.server.module.ModuleFactory;
 import com.cxfframe.server.module.ServiceBase;
-
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.cxf.common.util.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -18,43 +16,58 @@ import org.apache.log4j.Logger;
  */
 public class QueryServiceImpl implements QueryService {
 
-	private static final Logger logger = Logger.getLogger(QueryServiceImpl.class);
 
-	public String queryServerInformation(String moduleName, String params) {
+    private static final Logger logger = Logger.getLogger(QueryServiceImpl.class);
 
-		// 参数为空,直接返回错误信息
-		if (StringUtils.isEmpty(moduleName) & StringUtils.isEmpty(params)) {
-			logger.info(ExceptionInfoConstans.MODULENAME_PARAMS_EXCEPTION);
-			return ExceptionInfoConstans.MODULENAME_PARAMS_EXCEPTION;
-		}
 
-		// 根据模块名找class,找不到直接返回错误信息
-		LoadConfig loadConfig = LoadConfig.getInstance();
-		if (loadConfig.getModulesConfigWithInfomation().get(moduleName).isEmpty()) {
-			logger.info("module name : " + moduleName + " can not find the corresponding module");
-			return ExceptionInfoConstans.MODULENAME_CLASS_EXCEPTION;// moduleName找不到对应模块
-		}
+    public String queryServerInformation(String moduleName, String params) {
 
-		logger.info("==================== The server begins processing ====================");
-		logger.info("==================== The server begins processing ====================");
+        // 参数为空,直接返回错误信息
+        if (StringUtils.isEmpty(moduleName) & StringUtils.isEmpty(params)) {
+            logger.info(ExceptionInfoConstans.MODULENAME_PARAMS_EXCEPTION);
+            return ExceptionInfoConstans.MODULENAME_PARAMS_EXCEPTION;
+        }
 
-		String responseResult = "";
+        // 根据模块名找class,找不到直接返回错误信息
+        LoadConfig loadConfig = LoadConfig.getInstance();
+        if (loadConfig.getModulesConfigWithInfomation().get(moduleName).isEmpty()) {
+            logger.info("module name : " + moduleName + " can not find the corresponding module");
+            return ExceptionInfoConstans.MODULENAME_CLASS_EXCEPTION;// moduleName找不到对应模块
+        }
 
-		try {
 
-			// 根据模块名获取模块实例,加载模块配置并初始化
-			ServiceBase serviceBase = ModuleFactory.getModuleInstance(moduleName);
+        logger.info("==================== The server begins processing ====================");
+        logger.info("==================== The server begins processing ====================");
 
-			// 调用私有模块主方法
-			responseResult = serviceBase.process(params);
 
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+        logger.info("module name : " + moduleName + " , params : " + params);
 
-		logger.info("==================== The server is finished ====================");
-		logger.info("==================== The server is finished ====================");
+        String responseResult = "";
 
-		return responseResult;
-	}
+        try {
+
+            // 根据模块名获取模块实例,加载模块配置并初始化
+            ServiceBase serviceBase = ModuleFactory.getModuleInstance(moduleName);
+
+            //实例化模块失败,返回错误信息
+            if (serviceBase == null) {
+                logger.info(ExceptionInfoConstans.INSTANTIATE_MODULE_EXCEPTION);
+                return ExceptionInfoConstans.INSTANTIATE_MODULE_EXCEPTION;
+            }
+
+
+            // 调用私有模块主方法
+            responseResult = serviceBase.process(params);
+
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ExceptionInfoConstans.SERVER_PROCESS_EXCEPTION;
+        }
+
+        logger.info("==================== The server is finished ====================");
+        logger.info("==================== The server is finished ====================");
+
+        return responseResult;
+    }
 }
