@@ -2,6 +2,7 @@ package com.cxfframe.server.load;
 
 import com.cxfframe.server.common.CommConstans;
 import com.cxfframe.server.common.KeyConstans;
+import com.cxfframe.service.CXFFrameRelease;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -25,7 +26,7 @@ import java.util.Properties;
  */
 public class LoadConfig {
 
-    private static final Logger logger = Logger.getLogger(LoadConfig.class);
+    private final Logger logger = CXFFrameRelease.logger;
 
     //单例
     private static class LoadConfigHolder {
@@ -136,7 +137,6 @@ public class LoadConfig {
             String moduleClass = module.attributeValue("class");// 获取class的属性值
 
             moduleNameWithClass.put(moduleName, moduleClass);
-
         }
 
     }
@@ -159,7 +159,6 @@ public class LoadConfig {
 
             // 加载单个私有模块的配置信息
             loadPrivatelyOwnedModuleConf(moduleDir);
-
         }
 
     }
@@ -185,36 +184,21 @@ public class LoadConfig {
 
             for (File configFile : configFiles) {
 
-                //私有模块的log4j配置文件,存储文件路径,不读取
-                if (configFile.getName().contains("log4j")) {
+                String configFileName = configFile.getName();// 文件名
+                String configInformation = FileUtils.readFileToString(configFile, "UTF-8");// 文件内容
 
-                    String configFileName = configFile.getName();
-                    String log4jFilePath = configFile.getPath();//模块私有log配置文件的相对路径
-
-                    configFileNameWithinfo.put(configFileName, log4jFilePath);
-
-                } else {
-                    String configFileName = configFile.getName();// 文件名
-                    String configInformation = FileUtils.readFileToString(configFile, "UTF-8");// 文件内容
-
-                    // 文件名-文件内容,存入map
-                    configFileNameWithinfo.put(configFileName, configInformation);
-                }
-
-
+                // 文件名-文件内容,存入map
+                configFileNameWithinfo.put(configFileName, configInformation);
             }
 
         } else {
-
             logger.info("module Name : " + moduleName + " , configFiles is null");
-
         }
 
         // 模块名-(配置文件名-配置文件内容)
         modulesConfigWithInfomation.put(moduleName, configFileNameWithinfo);
 
         logger.info("All modules private configuration" + modulesConfigWithInfomation);
-
     }
 
     public String getCxfFrame_IP() {

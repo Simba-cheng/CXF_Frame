@@ -5,6 +5,7 @@ import com.cxfframe.server.inter.QueryService;
 import com.cxfframe.server.load.LoadConfig;
 import com.cxfframe.server.module.ModuleFactory;
 import com.cxfframe.server.module.ServiceBase;
+import com.cxfframe.service.CXFFrameRelease;
 import org.apache.cxf.common.util.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -17,7 +18,7 @@ import org.apache.log4j.Logger;
 public class QueryServiceImpl implements QueryService {
 
 
-    private static final Logger logger = Logger.getLogger(QueryServiceImpl.class);
+    private final Logger logger = CXFFrameRelease.logger;
 
 
     public String queryServerInformation(String moduleName, String params) {
