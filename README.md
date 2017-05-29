@@ -11,7 +11,8 @@ purpose:
 CXFFrame
 CXFFrame是在Apache CXF的基础上进一步封装的平台,业务模块以SDK的形式加入平台内.
 
-目的:
+目的:  
+
   1.简化WebService发布过程  
   
   2.对外发布一个WebService,即可包含大量业务模块  
